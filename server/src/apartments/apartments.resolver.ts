@@ -10,7 +10,7 @@ export class ApartmentsResolver {
 
   @Mutation(() => Apartment)
   async createApartment(@Args('createApartmentInput') createApartmentInput: CreateApartmentInput) {
-    return this.apartmentsService.create(createApartmentInput); // Потрібно створити метод create в apartments.service.ts
+    return this.apartmentsService.create(createApartmentInput);
   }
 
   @Query(() => [Apartment], { name: 'apartments' })

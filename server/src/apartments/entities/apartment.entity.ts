@@ -1,11 +1,8 @@
-// apartment.entity.ts
-
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { ObjectType, Field, Int } from '@nestjs/graphql'; // додані декоратори
-
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { User } from '../../user/entities/user.entity';
 
-@ObjectType() // декоратор для визначення типу GraphQL
+@ObjectType()
 @Entity()
 export class Apartment {
   @Field(() => Int)
@@ -17,14 +14,22 @@ export class Apartment {
   title: string;
 
   @Field()
-  @Column({ type: 'text' }) // assuming HTML content will be stored as plain text
+  @Column({ type: 'text' })
   description: string;
-
-  @Field(() => User)
-  @ManyToOne(() => User, { eager: true }) // eager loading to fetch seller data automatically
-  seller: User;
 
   @Field(() => Int)
   @Column()
   price: number;
+
+  @Field()
+  @Column()
+  imageUrl: string;
+
+  @Column({ name: 'sellerId' }) // Column for storing sellerId
+  sellerId: number;
+
+  @ManyToOne(() => User, { eager: true })
+  @Field(() => User)
+  @JoinColumn({ name: 'sellerId' }) // JoinColumn with sellerId in User entity
+  seller: User;
 }

@@ -25,8 +25,9 @@ type Apartment {
   id: Int!
   title: String!
   description: String!
-  seller: User!
   price: Int!
+  imageUrl: String!
+  seller: User!
 }
 
 type Query {
@@ -69,12 +70,18 @@ input CreateRoleInput {
 }
 
 input CreateApartmentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  description: String!
+  price: Int!
+  imageUrl: String!
+  sellerId: Int!
 }
 
 input UpdateApartmentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  description: String
+  price: Int
+  imageUrl: String
+  sellerId: Int
   id: Int!
 }
