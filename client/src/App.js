@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { IS_LOGGED_IN } from './apollo/auth';
@@ -6,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import LoginForm from './components/auth/LoginForm';
+import ApartmentDetails from './components/ApartmentDetails';
 
 const App = () => {
   const token = localStorage.getItem('token');
@@ -35,6 +37,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm />} />
+          <Route path="/apartment/:id" element={<ApartmentDetails />} />
         </Routes>
       </div>
     </div>

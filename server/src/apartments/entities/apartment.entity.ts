@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { User } from '../../user/entities/user.entity';
 
@@ -25,11 +25,40 @@ export class Apartment {
   @Column()
   imageUrl: string;
 
-  @Column({ name: 'sellerId' }) // Column for storing sellerId
+  @Field(() => Int)
+  @Column({ name: 'sellerId' })
   sellerId: number;
 
   @ManyToOne(() => User, { eager: true })
   @Field(() => User)
-  @JoinColumn({ name: 'sellerId' }) // JoinColumn with sellerId in User entity
+  @JoinColumn({ name: 'sellerId' })
   seller: User;
+
+  @Field()
+  @Column({ length: 255 })
+  locality: string;
+
+  @Field(() => Int)
+  @Column()
+  floorInApartment: number;
+
+  @Field(() => Int)
+  @Column()
+  numberOfRooms: number;
+
+  @Field(() => Int)
+  @Column()
+  square: number;
+
+  @Field()
+  @Column({ length: 255 })
+  wallMaterial: string;
+
+  @Field()
+  @Column({ length: 255 })
+  heating: string;
+
+  @Field()
+  @CreateDateColumn()
+  date: Date; // Додане поле для дати створення
 }

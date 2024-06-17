@@ -14,11 +14,8 @@ export class ApartmentsService {
 
   async create(createApartmentInput: CreateApartmentInput): Promise<Apartment> {
     const newApartment = this.apartmentRepository.create(createApartmentInput);
-
-    // Save the apartment
     await this.apartmentRepository.save(newApartment);
 
-    // Fetch the apartment with the associated seller using query builder
     const savedApartment = await this.apartmentRepository
       .createQueryBuilder('apartment')
       .leftJoinAndSelect('apartment.seller', 'seller')

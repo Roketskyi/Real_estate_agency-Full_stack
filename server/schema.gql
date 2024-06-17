@@ -27,7 +27,15 @@ type Apartment {
   description: String!
   price: Int!
   imageUrl: String!
+  sellerId: Int!
   seller: User!
+  locality: String!
+  floorInApartment: Int!
+  numberOfRooms: Int!
+  square: Int!
+  wallMaterial: String!
+  heating: String!
+  date: DateTime!
 }
 
 type Query {
@@ -75,6 +83,12 @@ input CreateApartmentInput {
   price: Int!
   imageUrl: String!
   sellerId: Int!
+  locality: String!
+  floorInApartment: Int!
+  numberOfRooms: Int!
+  square: Int!
+  wallMaterial: String!
+  heating: String!
 }
 
 input UpdateApartmentInput {
@@ -83,5 +97,11 @@ input UpdateApartmentInput {
   price: Int
   imageUrl: String
   sellerId: Int
+  locality: String
+  floorInApartment: Int
+  numberOfRooms: Int
+  square: Int
+  wallMaterial: String
+  heating: String
   id: Int!
 }

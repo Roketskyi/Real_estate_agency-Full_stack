@@ -13,20 +13,26 @@ export const GET_USERS = gql`
 `;
 
 export const GET_APARTMENTS = gql`
-    query {
-        apartments {
-            id
-            title
-            description
-            price
-            imageUrl
-            seller {
-                id
-                login
-                email
-            }
-        }
+    query GetApartments {
+    apartments {
+      id
+      title
+      description
+      price
+      imageUrl
+      seller {
+        id
+        login
+        email
+      }
+      locality
+      floorInApartment
+      numberOfRooms
+      square
+      wallMaterial
+      heating
     }
+  }
 `;
 
 export const GET_APARTMENT_BY_ID = gql`
@@ -42,6 +48,12 @@ export const GET_APARTMENT_BY_ID = gql`
                 login
                 email
             }
+            locality
+            floorInApartment
+            numberOfRooms
+            square
+            wallMaterial
+            heating
         }
     }
 `;

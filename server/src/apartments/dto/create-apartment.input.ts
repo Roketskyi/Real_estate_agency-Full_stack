@@ -14,6 +14,24 @@ export class CreateApartmentInput {
   @Field()
   imageUrl: string;
 
-  @Field(() => Int) // Assuming sellerId is of type Int
+  @Field(() => Int)
   sellerId: number;
+
+  @Field()
+  locality: string;
+
+  @Field(() => Int)
+  floorInApartment: number;
+
+  @Field(() => Int)
+  numberOfRooms: number;
+
+  @Field(() => Int)
+  square: number;
+
+  @Field()
+  wallMaterial: string;
+
+  @Field()
+  heating: string;
 }
