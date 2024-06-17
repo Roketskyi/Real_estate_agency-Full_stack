@@ -1,3 +1,4 @@
+// src/components/HomePage.js
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_APARTMENTS } from '../apollo/get-base';
