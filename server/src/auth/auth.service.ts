@@ -27,10 +27,11 @@ export class AuthService {
     }
   }
 
-  async login(user: User): Promise<{ accessToken: string }> {
+  async login(user: User): Promise<{ accessToken: string, id: number }> {
     const payload = { username: user.login, sub: user.id };
     return {
       accessToken: this.jwtService.sign(payload),
+      id: user.id,  // Додаємо ідентифікатор користувача до відповіді
     };
-  }
+  }  
 }

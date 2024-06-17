@@ -1,4 +1,3 @@
-// src/LoginForm.js
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from '../../apollo/auth';
@@ -16,16 +15,14 @@ const LoginForm = () => {
       const response = await login({ variables: { loginOrEmail, password } });
 
       if (response.data.login) {
-        const token = response.data.login;
-        console.log(data)
+        const { accessToken, id } = response.data.login;
 
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', accessToken);
+        localStorage.setItem('userId', id);
 
         navigate('/');
         window.location.reload();
       }
-
-      console.log(response.data.login)
     } catch (error) {
       console.error('Login error:', error);
     }

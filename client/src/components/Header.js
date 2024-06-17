@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClock, faPhone, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import AdminPanel from './AdminPanel'; // Import the AdminPanel component
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Header.css";
+
+
 import logo from "../images/logo.jpg";
 
 const Header = ({ isLoggedIn }) => {
@@ -213,9 +216,9 @@ const Header = ({ isLoggedIn }) => {
                     }}
                   >
                     <li>
-                      <a className="dropdown-item" href="#">
-                        Панель Адміністратора
-                      </a>
+                    <Link to="/admin" className="dropdown-item"> {/* Update link to use Link */}
+                  Панель Адміністратора
+                </Link>
                     </li>
                     <li>
                       <hr className="dropdown-divider" />

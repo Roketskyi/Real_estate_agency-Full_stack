@@ -38,6 +38,11 @@ type Apartment {
   date: DateTime!
 }
 
+type LoginResponse {
+  accessToken: String!
+  id: Int!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User!
@@ -52,7 +57,7 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   createRole(createRoleInput: CreateRoleInput!): Role!
-  login(loginOrEmail: String!, password: String!): String!
+  login(loginOrEmail: String!, password: String!): LoginResponse!
   createApartment(createApartmentInput: CreateApartmentInput!): Apartment!
   updateApartment(updateApartmentInput: UpdateApartmentInput!): Apartment!
   removeApartment(id: Int!): Apartment!
