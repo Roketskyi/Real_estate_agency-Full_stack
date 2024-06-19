@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_NEW_APARTMENT } from '../apollo/mutation-base';
 import { GET_USERS } from '../apollo/get-base';
@@ -9,9 +9,8 @@ const AdminPanel = () => {
     title: '',
     description: '',
     price: 0,
-    imageFile: null, // Store the uploaded file object
-    imageUrl: '', // Will store the filename with extension
-    sellerId: parseInt(localStorage.getItem('userId') || 0), // Initialize sellerId from localStorage
+    imageFile: null,
+    sellerId: parseInt(localStorage.getItem('userId') || 0),
     locality: '',
     floorInApartment: 0,
     numberOfRooms: 0,
@@ -29,9 +28,8 @@ const AdminPanel = () => {
         title: '',
         description: '',
         price: 0,
-        imageFile: null, // Reset imageFile
-        imageUrl: '', // Reset imageUrl
-        sellerId: parseInt(localStorage.getItem('userId') || 0), // Reset sellerId to current user's ID from localStorage
+        imageFile: null,
+        sellerId: parseInt(localStorage.getItem('userId') || 0),
         locality: '',
         floorInApartment: 0,
         numberOfRooms: 0,
@@ -46,7 +44,7 @@ const AdminPanel = () => {
     if (userData && userData.users && userData.users.length > 0 && inputValues.sellerId === 0) {
       setInputValues(prevState => ({
         ...prevState,
-        sellerId: parseInt(localStorage.getItem('userId') || 0), // Update sellerId with current user's ID from localStorage
+        sellerId: parseInt(localStorage.getItem('userId') || 0),
       }));
     }
   }, [userData, inputValues.sellerId]);
@@ -54,7 +52,6 @@ const AdminPanel = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Upload image file if available
     let uploadedImageUrl = '';
     if (inputValues.imageFile) {
       uploadedImageUrl = await uploadImage(inputValues.imageFile);
@@ -66,7 +63,7 @@ const AdminPanel = () => {
           title: inputValues.title,
           description: inputValues.description,
           price: parseFloat(inputValues.price),
-          imageUrl: uploadedImageUrl, // Use the uploaded image URL
+          imageUrl: uploadedImageUrl,
           sellerId: parseInt(inputValues.sellerId),
           locality: inputValues.locality,
           floorInApartment: parseInt(inputValues.floorInApartment),
@@ -84,7 +81,6 @@ const AdminPanel = () => {
     setInputValues({
       ...inputValues,
       imageFile: file,
-      imageUrl: file.name, // Display the filename in the input field (optional)
     });
   };
 
@@ -95,13 +91,12 @@ const AdminPanel = () => {
     });
   };
 
-  // Function to upload image file and return the uploaded image URL
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
 
     try {
-      const response = await fetch('/api/upload', {
+      const response = await fetch('http://192.168.0.192:4000/api/upload', {
         method: 'POST',
         body: formData,
       });
@@ -118,6 +113,14 @@ const AdminPanel = () => {
     }
   };
 
+  const modalRef = useRef();
+
+  const handleCloseModal = (e) => {
+    if (modalRef.current === e.target) {
+      setShowModal(false);
+    }
+  };
+
   if (usersLoading) return <p>Loading users...</p>;
   if (usersError) return <p>Error loading users: {usersError.message}</p>;
 
@@ -128,7 +131,7 @@ const AdminPanel = () => {
         Додати нову квартиру
       </button>
 
-      <div className={`modal ${showModal ? 'show' : ''}`} tabIndex="-1" role="dialog" style={{ display: showModal ? 'block' : 'none' }}>
+      <div className={`modal ${showModal ? 'show' : ''}`} ref={modalRef} onClick={handleCloseModal} tabIndex="-1" role="dialog" style={{ display: showModal ? 'block' : 'none' }}>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <form onSubmit={handleSubmit}>
@@ -150,8 +153,8 @@ const AdminPanel = () => {
                   <input type="number" className="form-control" id="price" name="price" value={inputValues.price} onChange={handleChange} required />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="imageUrl" className="form-label">Зображення на головній сторінці</label>
-                  <input type="file" className="form-control" id="imageUrl" name="imageUrl" onChange={handleImageUpload} />
+                  <label htmlFor="imageFile" className="form-label">Зображення на головній сторінці</label>
+                  <input type="file" className="form-control" id="imageFile" name="imageFile" onChange={handleImageUpload} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="locality" className="form-label">Місцезнаходження</label>

@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { GET_APARTMENTS } from '../apollo/get-base';
 import ProductCard from './ProductCard';
 import SortDropdown from './SortDropdown';
+import styled from 'styled-components';
 
 const HomePage = () => {
   const { loading, error, data } = useQuery(GET_APARTMENTS);

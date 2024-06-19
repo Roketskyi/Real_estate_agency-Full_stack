@@ -1,48 +1,178 @@
-// src/components/ProductCard.js
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import "./css/ProductCard.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { FaRegEnvelope, FaUserAlt, FaBed, FaRulerCombined, FaBuilding, FaThermometerHalf } from 'react-icons/fa';
+
+const formatPrice = (price) => {
+  return price.toLocaleString('uk-UA'); // Використовуйте 'uk-UA' для української мови
+};
+
+const Card = styled.div`
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px; /* Adjust the margin value as per your design */
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+
+const Row = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Col = styled.div`
+  flex: ${(props) => props.flex || '1'};
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+  ${Card}:hover & {
+    transform: scale(1.05);
+  }
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+`;
+
+const Body = styled.div`
+  padding: 20px;
+`;
+
+const Title = styled.h2`
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const Description = styled.p`
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 15px;
+  a {
+    color: inherit;
+  }
+`;
+
+const Details = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
+
+const InfoBlock = styled.div`
+  flex: 1 1 45%;
+  border-right: 1px solid #dadadb;
+  padding-right: 20px;
+`;
+
+const Info = styled.p`
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 8px;
+  }
+`;
+
+const Price = styled.p`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28a745;
+`;
+
+const Locality = styled.p`
+  font-size: 1.1rem;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 8px;
+  }
+`;
 
 const ProductCard = ({ product }) => {
-  const imagePath = `${process.env.PUBLIC_URL}/apartments/${product.id}/${product.imageUrl}`;
+  const imagePath = `${product.imageUrl}`;
 
   return (
-    <div className="col-lg-12 col-md-12 col-12 mb-4">
-      <Card className="single-product">
-        <div className="row align-items-center">
-          <div className="col-lg-4 col-md-4 col-12">
-            <div className="product-image">
-              <Card.Img src={imagePath} alt={product.title} className="img-fluid" />
-            </div>
-          </div>
-          <div className="col-lg-8 col-md-8 col-12">
-            <Card.Body>
-              <Card.Title>
+    <Col flex="100%">
+      <Card>
+        <Row>
+          <Col flex="30%">
+            {/* Wrap the Image with Link */}
+            <Link to={`/apartment/${product.id}`}>
+              <Image src={imagePath} alt={product.title} />
+            </Link>
+          </Col>
+          <Col flex="70%">
+            <Body>
+              <Title>
+                {/* Wrap the Title with Link */}
                 <Link to={`/apartment/${product.id}`}>{product.title}</Link>
-              </Card.Title>
-              <Card.Text>{product.description}</Card.Text>
-              <div className="apartment-details">
-                <p className="apartment-info">Ціна: {product.price} $</p>
-                <p className="apartment-info">Продавець: {product.seller.login}</p>
-                <p className="apartment-info">Email: {product.seller.email}</p>
-                <p className="apartment-info">
-                  <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: 'yellow' }} /> {/* Значок геолокації */}
-                  Місто: {product.locality}
-                </p>
-                <p className="apartment-info">Поверх: {product.floorInApartment}</p>
-                <p className="apartment-info">Кількість кімнат: {product.numberOfRooms}</p>
-                <p className="apartment-info">Площа: {product.square} м²</p>
-                <p className="apartment-info">Матеріал стін: {product.wallMaterial}</p>
-                <p className="apartment-info">Опалення: {product.heating}</p>
-              </div>
-            </Card.Body>
-          </div>
-        </div>
+              </Title>
+              <Description>
+                {/* Wrap the Description with Link */}
+                <Link to={`/apartment/${product.id}`}>{product.description}</Link>
+              </Description>
+              <Details>
+                <InfoBlock>
+                  <Price>Ціна: {formatPrice(product.price)} $</Price>
+                  <Locality>
+                    <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: 'yellow' }} />
+                    Місто: {product.locality}
+                  </Locality>
+                </InfoBlock>
+                <InfoBlock>
+                  <Info>
+                    <FaUserAlt /> Продавець: {product.seller.login}
+                  </Info>
+                  <Info>
+                    <FaRegEnvelope /> Email: {product.seller.email}
+                  </Info>
+                </InfoBlock>
+                <InfoBlock>
+                  <Info>
+                    <FaBuilding /> Поверх: {product.floorInApartment}
+                  </Info>
+                  <Info>
+                    <FaBed /> Кількість кімнат: {product.numberOfRooms}
+                  </Info>
+                </InfoBlock>
+                <InfoBlock>
+                  <Info>
+                    <FaRulerCombined /> Площа: {product.square} м²
+                  </Info>
+                  <Info>
+                    <FaBuilding /> Матеріал стін: {product.wallMaterial}
+                  </Info>
+                  <Info>
+                    <FaThermometerHalf /> Опалення: {product.heating}
+                  </Info>
+                </InfoBlock>
+              </Details>
+            </Body>
+          </Col>
+        </Row>
       </Card>
-    </div>
+    </Col>
   );
 };
 

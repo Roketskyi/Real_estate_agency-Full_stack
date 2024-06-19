@@ -13,8 +13,8 @@ const SortDropdown = ({ handleSort }) => {
   };
 
   return (
-    <Dropdown>
-      <Dropdown.Toggle variant="info" id="dropdown-basic">
+    <Dropdown style={{ textAlign: 'right'}}>
+      <Dropdown.Toggle variant="info" id="dropdown-basic" style={{ marginBottom: '20px' }}>
         <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortAmountDown : faSortAmountUp} /> Сортувати за:
       </Dropdown.Toggle>
 

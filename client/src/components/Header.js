@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faClock, faPhone, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import AdminPanel from './AdminPanel'; // Import the AdminPanel component
+import {
+  faBars,
+  faClock,
+  faPhone,
+  faEllipsisV,
+} from "@fortawesome/free-solid-svg-icons";
+import AdminPanel from "./AdminPanel"; // Import the AdminPanel component
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Header.css";
-
 
 import logo from "../images/logo.jpg";
 
@@ -13,6 +17,26 @@ const Header = ({ isLoggedIn }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
+
+  const dropdownRef = useRef(null); // Ref for dropdown menu
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close dropdown menu if clicked outside
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -23,12 +47,12 @@ const Header = ({ isLoggedIn }) => {
     setShowMenu(!showMenu);
   };
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
-
   const toggleContacts = () => {
     setShowContacts(!showContacts);
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
   };
 
   return (
@@ -216,9 +240,9 @@ const Header = ({ isLoggedIn }) => {
                     }}
                   >
                     <li>
-                    <Link to="/admin" className="dropdown-item"> {/* Update link to use Link */}
-                  Панель Адміністратора
-                </Link>
+                    <Link to="/admin" className="dropdown-item">
+                      Панель Адміністратора
+                    </Link>
                     </li>
                     <li>
                       <hr className="dropdown-divider" />
