@@ -116,7 +116,7 @@ const ProductCard = ({ product }) => {
     <Col flex="100%">
       <Card>
         <Row>
-          <Col flex="30%">
+          <Col flex="30%" className='row align-items-center'>
             {/* Wrap the Image with Link */}
             <Link to={`/apartment/${product.id}`}>
               <Image src={imagePath} alt={product.title} />
