@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from 'src/roles/entities/role.entity';
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 
@@ -27,11 +28,14 @@ export class AuthService {
     }
   }
 
-  async login(user: User): Promise<{ accessToken: string, id: number }> {
-    const payload = { username: user.login, sub: user.id };
+  async login(user: User): Promise<{ accessToken: string, id: number, avatar: string, role: Role }> {
+    const payload = { username: user.login, sub: user.id, role_id: user.role.role_id };
+    const accessToken = this.jwtService.sign(payload);
     return {
-      accessToken: this.jwtService.sign(payload),
-      id: user.id,  // Додаємо ідентифікатор користувача до відповіді
+      accessToken,
+      id: user.id,
+      avatar: user.avatar,
+      role: user.role,
     };
-  }  
+  }
 }

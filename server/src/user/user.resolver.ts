@@ -12,19 +12,17 @@ export class UserResolver {
   async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     const { login, email } = createUserInput;
     
-    // Check if user with the provided login or email already exists
     const existingUser = await this.userService.findByLoginOrEmail(login, email);
     if (existingUser) {
-      throw new Error('Login or email already taken');
+      throw new Error('Логін або Email вже зайнятий');
     }
     
-    // If user does not exist, proceed with creation
     return this.userService.create(createUserInput);
   }
 
-  @Query(() => [User], { name: 'users' }) // Define the query name as 'users'
+  @Query(() => [User], { name: 'users' })
   findAllUsers() {
-    return this.userService.findAll(); // Call the service method to fetch all users
+    return this.userService.findAll();
   }
 
   @Query(() => User, { name: 'user' })

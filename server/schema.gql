@@ -12,6 +12,7 @@ type User {
   login: String!
   password: String!
   email: String!
+  avatar: String!
   role: Role!
   createdAt: DateTime!
 }
@@ -41,6 +42,8 @@ type Apartment {
 type LoginResponse {
   accessToken: String!
   id: Int!
+  avatar: String
+  role: Role
 }
 
 type Query {
@@ -67,14 +70,16 @@ input CreateUserInput {
   login: String!
   password: String!
   email: String!
-  role: Int! = 1
+  role: Int! = 2
+  avatar: String
 }
 
 input UpdateUserInput {
   login: String
   password: String
   email: String
-  role: Int = 1
+  role: Int = 2
+  avatar: String
   id: Int!
 }
 

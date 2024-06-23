@@ -1,19 +1,19 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_USERS = gql`
-    query {
-        users {
-            id
-            login
-            password
-            email
-            createdAt
-        }
+  query {
+    users {
+      id
+      login
+      password
+      email
+      createdAt
     }
+  }
 `;
 
 export const GET_APARTMENTS = gql`
-    query GetApartments {
+  query GetApartments {
     apartments {
       id
       title
@@ -36,24 +36,32 @@ export const GET_APARTMENTS = gql`
 `;
 
 export const GET_APARTMENT_BY_ID = gql`
-    query GetApartmentById($id: Int!) {
-        apartment(id: $id) {
-            id
-            title
-            description
-            price
-            imageUrl
-            seller {
-                id
-                login
-                email
-            }
-            locality
-            floorInApartment
-            numberOfRooms
-            square
-            wallMaterial
-            heating
-        }
+  query GetApartmentById($id: Int!) {
+    apartment(id: $id) {
+      id
+      title
+      description
+      price
+      imageUrl
+      seller {
+        id
+        login
+        email
+      }
+      locality
+      floorInApartment
+      numberOfRooms
+      square
+      wallMaterial
+      heating
     }
+  }
+`;
+
+export const GET_AVATAR_BY_USER_ID = gql`
+  query GetUser($id: Int!) {
+    user(id: $id) {
+      avatar
+    }
+  }
 `;

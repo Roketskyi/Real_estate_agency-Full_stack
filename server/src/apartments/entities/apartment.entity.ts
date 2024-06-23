@@ -60,5 +60,5 @@ export class Apartment {
 
   @Field()
   @CreateDateColumn()
-  date: Date; // Додане поле для дати створення
+  date: Date;
 }

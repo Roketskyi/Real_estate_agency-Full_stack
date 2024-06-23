@@ -5,14 +5,14 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
 import * as argon2 from 'argon2';
-import { Role } from 'src/roles/entities/role.entity'; // Припускаю, що ваша сутність Role знаходиться тут
+import { Role } from 'src/roles/entities/role.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    @InjectRepository(Role) // Додаємо roleRepository до конструктора
+    @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
   ) {}
 
@@ -27,14 +27,22 @@ export class UserService {
     newUser.login = createUserInput.login;
     newUser.password = hashedPassword;
     newUser.email = createUserInput.email;
-    newUser.role = await this.findRoleById(createUserInput.role); // Отримання об'єкту ролі з бази
+    newUser.role = await this.findRoleById(createUserInput.role);
     newUser.createdAt = new Date();
+    newUser.avatar = 'http://192.168.0.192:4000/uploads/avatars/default.png';
 
     return await this.userRepository.save(newUser);
   }
 
   async validateUser(loginOrEmail: string, password: string): Promise<User | null> {
-    const user = await this.userRepository.findOne({ where: [{ login: loginOrEmail }, { email: loginOrEmail }] });
+    const user = await this.userRepository.findOne({
+      where: [
+        { login: loginOrEmail },
+        { email: loginOrEmail }
+      ],
+      relations: ['role']
+    });
+
     
     if (user && await argon2.verify(user.password, password)) {
       return user;
@@ -76,7 +84,11 @@ export class UserService {
     }
 
     if (updateUserInput.role) {
-      user.role = await this.findRoleById(updateUserInput.role); // Оновлення ролі користувача
+      user.role = await this.findRoleById(updateUserInput.role);
+    }
+
+    if (updateUserInput.avatar) {
+      user.avatar = updateUserInput.avatar;
     }
 
     return await this.userRepository.save(user);
@@ -100,5 +112,4 @@ export class UserService {
     }
     return role;
   }
-  
 }

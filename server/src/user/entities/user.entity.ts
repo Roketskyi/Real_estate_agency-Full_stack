@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Role } from '../../roles/entities/role.entity'; // Переконайтеся, що шлях до сутності Role вірний
+import { Role } from '../../roles/entities/role.entity';
 
 @Entity()
 @ObjectType()
@@ -21,8 +21,12 @@ export class User {
   @Field()
   email: string;
 
+  @Column()
+  @Field()
+  avatar: string;
+
   @ManyToOne(() => Role, role => role.users)
-  @JoinColumn({ name: 'roleId' })
+  @JoinColumn({ name: 'role_id' })
   @Field(() => Role)
   role: Role;
 

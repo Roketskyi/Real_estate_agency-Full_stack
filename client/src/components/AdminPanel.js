@@ -96,7 +96,7 @@ const AdminPanel = () => {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://192.168.0.192:4000/api/upload', {
+      const response = await fetch('http://192.168.0.192:4000/api/upload/apartment', {
         method: 'POST',
         body: formData,
       });

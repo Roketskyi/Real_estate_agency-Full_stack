@@ -11,6 +11,12 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { ApartmentsModule } from './apartments/apartments.module';
+import { UploadModule } from './upload/upload.module';
+import { UploadController } from './upload/upload.controller';
+import { multerConfig } from './multer.config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -38,8 +44,13 @@ dotenv.config();
     AuthModule,
     RolesModule,
     ApartmentsModule,
+    UploadModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
   ],
-  controllers: [AppController],
+  controllers: [AppController, UploadController],
   providers: [AppService],
 })
 

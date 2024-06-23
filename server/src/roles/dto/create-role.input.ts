@@ -5,5 +5,5 @@ import { IsString } from 'class-validator';
 export class CreateRoleInput {
   @Field()
   @IsString()
-  role_name: string; // Define the role_name field
+  role_name: string;
 }
