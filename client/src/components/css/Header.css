@@ -1,4 +1,3 @@
-/* header.css */
 @media (min-width: 991px) {
     .d-md-block-my {
         display: block !important;
@@ -39,7 +38,6 @@
     }
 }
 
-/* Additional styles for contact links */
 .list-navbar-contacts .icon {
     color: #ffdb73;
 }
@@ -61,7 +59,6 @@
     letter-spacing: 0.075em;
 }
 
-/* Logo size */
 .main-logo {
     width: auto;
     height: auto;
@@ -69,7 +66,6 @@
     max-height: 90px;
 }
 
-/* Button styles */
 .button {
     position: relative;
     overflow: hidden;
@@ -99,7 +95,6 @@
     border-color: #ffa200;
 }
 
-/* Link styles */
 a,
 a:focus,
 a:active {
@@ -113,7 +108,6 @@ a {
     text-decoration: none;
 }
 
-/* Button medium styles */
 .button-md {
     min-width: 140px;
     padding: 12px 23px 10px;
@@ -121,7 +115,6 @@ a {
     line-height: 1.5;
 }
 
-/* Dropdown menu styles */
 .rd-navbar-fixed {
     background-color: #ffffff;
     box-shadow: 0 0 22px -4px rgba(0, 0, 0, 0.17);
@@ -147,7 +140,6 @@ a {
     visibility: visible;
 }
 
-/* Corporate contacts styles */
 .rd-navbar-corporate-contacts {
     list-style: none;
     padding: 0;

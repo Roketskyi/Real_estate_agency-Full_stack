@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { GET_AVATAR_BY_USER_ID } from '../../apollo/get-base'; // Import your GraphQL query
+import { GET_AVATAR_BY_USER_ID } from '../../apollo/get-base';
 import { useAuth } from '../../context/AuthContext';
 import { useQuery } from '@apollo/client';
 
@@ -33,13 +33,13 @@ const MainHeader = ({
   };
 
   const handleOptionClick = () => {
-    if (showDropdown) toggleDropdown(); // Закрити панель при виборі опції
+    if (showDropdown) toggleDropdown();
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (showDropdown) toggleDropdown(); // Закрити панель, якщо вона відкрита
+        if (showDropdown) toggleDropdown();
       }
     };
 

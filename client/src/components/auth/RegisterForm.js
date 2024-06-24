@@ -24,13 +24,12 @@ const RegisterForm = () => {
           }
         });
   
-        console.log(response); // Handle response as needed
-        setErrorMessage(''); // Очищаємо повідомлення про помилку при успішній реєстрації
+        console.log(response);
+        setErrorMessage('');
   
-        // Optionally, you can handle redirection or other UI updates upon successful registration
       } catch (err) {
         console.error('Registration error:', err);
-        setErrorMessage(err.message); // Зберігаємо повідомлення про помилку
+        setErrorMessage(err.message);
       }
     };
   

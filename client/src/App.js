@@ -5,15 +5,14 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Header from './components/header/Header';
 import HomePage from './components/HomePage';
 import LoginForm from './components/auth/LoginForm';
-import ApartmentDetails from './components/ApartmentDetails';
+import ApartmentDetails from './components/apartment-details/ApartmentDetails';
 import AdminPanel from './components/AdminPanel';
 import ProfilePage from './components/ProfilePage';
-import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
+import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');
   const [loginOrEmail, setLoginOrEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -68,7 +67,6 @@ const App = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-
       <AuthProvider>
         <div>
           <Header isLoggedIn={isLoggedIn} />
@@ -83,7 +81,6 @@ const App = () => {
           </div>
         </div>
       </AuthProvider>
-
   );
 };
 

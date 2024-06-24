@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const isAdmin = () => user && user.role === 4; // Example check for admin role
+  const isAdmin = () => user && user.role === 4;
 
   return (
     <AuthContext.Provider value={{ user, login, logout, isAdmin }}>

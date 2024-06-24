@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Box } from '@mui/material';
-import RegisterForm from '../auth/RegisterForm'; // Import the RegisterForm component
+import RegisterForm from '../auth/RegisterForm';
 
 const RegisterFormModal = ({ open, handleClose }) => {
   return (
@@ -17,7 +17,7 @@ const RegisterFormModal = ({ open, handleClose }) => {
         transform: 'translate(-50%, -50%)',
         width: 400,
       }}>
-        <RegisterForm /> {/* Render the RegisterForm component */}
+        <RegisterForm />
       </Box>
     </Modal>
   );

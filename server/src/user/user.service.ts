@@ -29,7 +29,7 @@ export class UserService {
     newUser.email = createUserInput.email;
     newUser.role = await this.findRoleById(createUserInput.role);
     newUser.createdAt = new Date();
-    newUser.avatar = 'http://192.168.0.192:4000/uploads/avatars/default.png';
+    newUser.avatar = 'http://localhost:4000/uploads/avatars/default.png';
 
     return await this.userRepository.save(newUser);
   }

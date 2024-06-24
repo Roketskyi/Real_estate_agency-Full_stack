@@ -1,11 +1,10 @@
-// src/components/SortDropdown.js
 import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortAmountDown, faSortAmountUp } from '@fortawesome/free-solid-svg-icons';
 
 const SortDropdown = ({ handleSort }) => {
-  const [sortOrder, setSortOrder] = useState('asc'); // asc (за зростанням) або desc (за спаданням)
+  const [sortOrder, setSortOrder] = useState('asc');
 
   const handleSortOrderChange = (order) => {
     setSortOrder(order);

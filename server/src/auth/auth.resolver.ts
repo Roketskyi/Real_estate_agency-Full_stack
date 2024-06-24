@@ -42,9 +42,9 @@ class LoginResponse {
   @Field(() => Int)
   id: number;
 
-  @Field({ nullable: true }) // Поле avatar може бути null, якщо воно не встановлене
+  @Field({ nullable: true })
   avatar?: string;
 
   @Field(() => Role, { nullable: true })
-  role?: Role; // Переконайтеся, що `Role` правильно імпортовано з entities/role.entity
+  role?: Role;
 }

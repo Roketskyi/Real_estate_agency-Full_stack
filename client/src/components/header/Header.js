@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import MobileNavbar from "./MobileNavbar";
 import MobileContacts from "./MobileContacts";
 import MainHeader from "./MainHeader";
-import LoginFormModal from "./LoginFormModal";  // Import the modal component
+import LoginFormModal from "./LoginFormModal";
 import RegisterFormModal from './RegisterFormModal'
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,8 +13,8 @@ const Header = ({ isLoggedIn }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
-  const [openLoginModal, setOpenLoginModal] = useState(false); // State to control login modal visibility
-  const [openRegisterModal, setOpenRegisterModal] = useState(false); // State to control register modal visibility
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -62,10 +62,10 @@ const Header = ({ isLoggedIn }) => {
         showDropdown={showDropdown}
         toggleDropdown={toggleDropdown}
         handleOpenLoginModal={handleOpenLoginModal}
-        handleOpenRegisterModal={handleOpenRegisterModal} // Pass the function to open the register modal
+        handleOpenRegisterModal={handleOpenRegisterModal}
       />
-      <LoginFormModal open={openLoginModal} handleClose={handleCloseLoginModal} /> {/* Login Form Modal */}
-      <RegisterFormModal open={openRegisterModal} handleClose={handleCloseRegisterModal} /> {/* Register Form Modal */}
+      <LoginFormModal open={openLoginModal} handleClose={handleCloseLoginModal} />
+      <RegisterFormModal open={openRegisterModal} handleClose={handleCloseRegisterModal} />
     </div>
   );
 };

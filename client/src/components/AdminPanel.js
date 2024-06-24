@@ -106,10 +106,10 @@ const AdminPanel = () => {
       }
 
       const data = await response.json();
-      return data.imageUrl; // Assuming API returns the URL where the image is stored
+      return data.imageUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
-      return ''; // Handle error gracefully
+      return '';
     }
   };
 

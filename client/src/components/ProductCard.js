@@ -6,7 +6,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaRegEnvelope, FaUserAlt, FaBed, FaRulerCombined, FaBuilding, FaThermometerHalf } from 'react-icons/fa';
 
 const formatPrice = (price) => {
-  return price.toLocaleString('uk-UA'); // Використовуйте 'uk-UA' для української мови
+  return price.toLocaleString('uk-UA');
 };
 
 const Card = styled.div`
@@ -117,7 +117,6 @@ const ProductCard = ({ product }) => {
       <Card>
         <Row>
           <Col flex="30%" className='row align-items-center'>
-            {/* Wrap the Image with Link */}
             <Link to={`/apartment/${product.id}`}>
               <Image src={imagePath} alt={product.title} />
             </Link>
@@ -125,11 +124,9 @@ const ProductCard = ({ product }) => {
           <Col flex="70%">
             <Body>
               <Title>
-                {/* Wrap the Title with Link */}
                 <Link to={`/apartment/${product.id}`}>{product.title}</Link>
               </Title>
               <Description>
-                {/* Wrap the Description with Link */}
                 <Link to={`/apartment/${product.id}`}>{product.description}</Link>
               </Description>
               <Details>

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateApartmentInput } from './dto/create-apartment.input';
 import { UpdateApartmentInput } from './dto/update-apartment.input';
-import { Apartment } from './entities/apartment.entity'; // Ensure correct import
+import { Apartment } from './entities/apartment.entity';
 
 @Injectable()
 export class ApartmentsService {

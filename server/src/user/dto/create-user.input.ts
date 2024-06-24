@@ -19,7 +19,7 @@ export class CreateUserInput {
   @IsInt()
   role: number;
 
-  @Field({ nullable: true }) // or remove @Field() if not needed in GraphQL
+  @Field({ nullable: true })
   @IsString()
   @IsOptional()
   avatar?: string;

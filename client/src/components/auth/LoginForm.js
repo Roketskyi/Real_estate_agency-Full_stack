@@ -29,9 +29,8 @@ const LoginForm = () => {
     }
   };
 
-  // Check if authContext or login function is undefined
   if (!authContext || !authContext.login) {
-    return <div>Loading...</div>; // or handle initial loading state
+    return <div>Loading...</div>;
   }
 
   return (

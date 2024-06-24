@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Box } from "@mui/material";
-import LoginForm from "../auth/LoginForm"; // Correct import path for LoginForm
+import LoginForm from "../auth/LoginForm";
 
 const LoginFormModal = ({ open, handleClose }) => {
   return (

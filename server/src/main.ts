@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
 
-  await app.listen(4000, '192.168.0.192');
+  await app.listen(4000, 'localhost');
 }
 
 bootstrap();

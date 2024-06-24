@@ -22,3 +22,11 @@ export const ADD_NEW_APARTMENT = gql`
     }
   }
 `;
+
+export const UPDATE_USER_AVATAR = gql`
+  mutation UpdateUserAvatar($id: Int!, $avatar: String!) {
+    updateUser(updateUserInput: { id: $id, avatar: $avatar }) {
+      avatar
+    }
+  }
+`;
