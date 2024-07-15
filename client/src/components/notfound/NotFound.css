@@ -1,0 +1,66 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  position: relative; /* Додайте це */
+  overflow: hidden; /* Щоб псевдоелемент не виходив за межі контейнера */
+}
+
+.not-found-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65); /* Затемнення */
+  z-index: 1; /* Розмістіть затемнення поверх зображення */
+}
+
+.not-found-image {
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 0; /* Розмістіть зображення під затемненням */
+}
+
+.not-found-text {
+  position: absolute;
+  z-index: 2; /* Розмістіть текст поверх затемнення */
+  text-align: center;
+}
+
+.not-found-text h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.not-found-text h2 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.home-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  z-index: 2; /* Розмістіть кнопку поверх затемнення */
+}
+
+.home-button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.p-4 {
+    padding: 0;
+}

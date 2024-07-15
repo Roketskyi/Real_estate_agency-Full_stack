@@ -8,6 +8,7 @@ import LoginForm from './components/auth/LoginForm';
 import ApartmentDetails from './components/apartment-details/ApartmentDetails';
 import AdminPanel from './components/AdminPanel';
 import ProfilePage from './components/ProfilePage';
+import NotFound from './components/notfound/NotFound';
 import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
@@ -70,15 +71,15 @@ const App = () => {
       <AuthProvider>
         <div>
           <Header isLoggedIn={isLoggedIn} />
-          <div className="p-4">
             <Routes>
+              <Route path="*" element={<NotFound />} /> 
+
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm setLoginOrEmail={setLoginOrEmail} setPassword={setPassword} />} />
               <Route path="/apartment/:id" element={<ApartmentDetails />} />
               <Route path="/admin" element={<AdminPanel />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
-          </div>
         </div>
       </AuthProvider>
   );
