@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_NEW_APARTMENT } from '../apollo/mutation-base';
 import { GET_USERS } from '../apollo/get-base';
+import { useAuth } from '../context/AuthContext';
 
 const AdminPanel = () => {
   const [showModal, setShowModal] = useState(false);
@@ -10,7 +11,7 @@ const AdminPanel = () => {
     description: '',
     price: 0,
     imageFile: null,
-    sellerId: parseInt(localStorage.getItem('userId') || 0),
+    sellerId: null,
     locality: '',
     floorInApartment: 0,
     numberOfRooms: 0,
@@ -19,7 +20,18 @@ const AdminPanel = () => {
     heating: '',
   });
 
-  const { loading: usersLoading, error: usersError, data: userData } = useQuery(GET_USERS);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setInputValues(prevState => ({
+        ...prevState,
+        sellerId: user.id,
+      }));
+    }
+  }, [user]);
+
+  const { loading: usersLoading, error: usersError } = useQuery(GET_USERS);
 
   const [createApartment, { loading: createLoading, error: createError }] = useMutation(ADD_NEW_APARTMENT, {
     onCompleted: () => {
@@ -29,7 +41,7 @@ const AdminPanel = () => {
         description: '',
         price: 0,
         imageFile: null,
-        sellerId: parseInt(localStorage.getItem('userId') || 0),
+        sellerId: user ? user.id : null,
         locality: '',
         floorInApartment: 0,
         numberOfRooms: 0,
@@ -40,23 +52,19 @@ const AdminPanel = () => {
     },
   });
 
-  useEffect(() => {
-    if (userData && userData.users && userData.users.length > 0 && inputValues.sellerId === 0) {
-      setInputValues(prevState => ({
-        ...prevState,
-        sellerId: parseInt(localStorage.getItem('userId') || 0),
-      }));
-    }
-  }, [userData, inputValues.sellerId]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let uploadedImageUrl = '';
     if (inputValues.imageFile) {
-      uploadedImageUrl = await uploadImage(inputValues.imageFile);
+      try {
+        uploadedImageUrl = await uploadImage(inputValues.imageFile);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        return;
+      }
     }
-
+    
     createApartment({
       variables: {
         input: {
@@ -64,7 +72,7 @@ const AdminPanel = () => {
           description: inputValues.description,
           price: parseFloat(inputValues.price),
           imageUrl: uploadedImageUrl,
-          sellerId: parseInt(inputValues.sellerId),
+          sellerId: inputValues.sellerId,
           locality: inputValues.locality,
           floorInApartment: parseInt(inputValues.floorInApartment),
           numberOfRooms: parseInt(inputValues.numberOfRooms),
@@ -96,20 +104,20 @@ const AdminPanel = () => {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://192.168.0.192:4000/api/upload/apartment', {
+      const response = await fetch('http://localhost:4000/api/upload/apartment', {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Upload failed');
+        throw new Error(`Upload failed with status: ${response.status}`);
       }
 
       const data = await response.json();
       return data.imageUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
-      return '';
+      throw error;
     }
   };
 
@@ -149,7 +157,7 @@ const AdminPanel = () => {
                   <textarea className="form-control" id="description" name="description" value={inputValues.description} onChange={handleChange}></textarea>
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="price" className="form-label">Ціна</label>
+                  <label htmlFor="price" className="form-label">Ціна $</label>
                   <input type="number" className="form-control" id="price" name="price" value={inputValues.price} onChange={handleChange} required />
                 </div>
                 <div className="mb-3">
@@ -169,7 +177,7 @@ const AdminPanel = () => {
                   <input type="number" className="form-control" id="numberOfRooms" name="numberOfRooms" value={inputValues.numberOfRooms} onChange={handleChange} />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="square" className="form-label">Площа (кв. м)</label>
+                  <label htmlFor="square" className="form-label">Площа (м²)</label>
                   <input type="number" className="form-control" id="square" name="square" value={inputValues.square} onChange={handleChange} />
                 </div>
                 <div className="mb-3">

@@ -3,10 +3,22 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import { FaRegEnvelope, FaUserAlt, FaBed, FaRulerCombined, FaBuilding, FaThermometerHalf } from 'react-icons/fa';
+import { FaRegEnvelope, FaUserAlt, FaBed, FaRulerCombined, FaBuilding, FaThermometerHalf, FaPhoneAlt } from 'react-icons/fa';
 
 const formatPrice = (price) => {
   return price.toLocaleString('uk-UA');
+};
+
+const formatPhoneNumber = (phoneNumber) => {
+  if (!phoneNumber || phoneNumber.length !== 12) return phoneNumber;
+
+  const countryCode = phoneNumber.slice(0, 2);
+  const operatorCode = phoneNumber.slice(2, 5);
+  const firstPart = phoneNumber.slice(5, 8);
+  const secondPart = phoneNumber.slice(8, 10);
+  const thirdPart = phoneNumber.slice(10, 12);
+
+  return `+${countryCode} (${operatorCode}) ${firstPart}-${secondPart}-${thirdPart}`;
 };
 
 const Card = styled.div`
@@ -112,6 +124,9 @@ const Locality = styled.p`
 const ProductCard = ({ product }) => {
   const imagePath = `${product.imageUrl}`;
 
+  const phone1 = product.seller.phone1 !== "0" ? formatPhoneNumber(product.seller.phone1) : null;
+  const phone2 = product.seller.phone2 !== "0" ? formatPhoneNumber(product.seller.phone2) : null;
+
   return (
     <Col flex="100%">
       <Card>
@@ -144,6 +159,16 @@ const ProductCard = ({ product }) => {
                   <Info>
                     <FaRegEnvelope /> Email: {product.seller.email}
                   </Info>
+                  {phone1 && (
+                    <Info>
+                      <FaPhoneAlt /> Номер продавця: {phone1}
+                    </Info>
+                  )}
+                  {phone2 && (
+                    <Info>
+                      <FaPhoneAlt /> Номер продавця: {phone2}
+                    </Info>
+                  )}
                 </InfoBlock>
                 <InfoBlock>
                   <Info>

@@ -2,11 +2,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_APARTMENT_BY_ID } from '../../apollo/get-base';
-import { Container, Grid, CircularProgress, Typography, Box } from '@mui/material';
+import { Container, Grid, CircularProgress, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import ApartmentCard from './ApartmentCard';
 import SellerInfo from './SellerInfo';
-import ContactForm from './ContactForm';
 import Amenities from './Amenities';
 import LocationMap from './LocationMap';
 import SimilarApartments from './SimilarApartments';
@@ -64,17 +63,12 @@ const ApartmentDetails = () => {
             <Amenities amenities={apartment.amenities} />
           </motion.div>
           <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
-          </motion.div>
-          <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
             <SimilarApartments />
           </motion.div>
         </Grid>
         <Grid item xs={12} md={4}>
           <motion.div initial={{ x: 100 }} animate={{ x: 0 }}>
             <SellerInfo seller={apartment.seller} />
-          </motion.div>
-          <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
-            <ContactForm sellerEmail={apartment.seller.email} />
           </motion.div>
           <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
             <LocationMap location={apartment.location} />

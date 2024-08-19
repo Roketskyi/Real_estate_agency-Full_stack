@@ -15,6 +15,14 @@ export class CreateUserInput {
   @IsEmail()
   email: string;
 
+  @Field({ defaultValue: '0' })
+  @IsString()
+  phone1?: string;
+
+  @Field({ defaultValue: '0' })
+  @IsString()
+  phone2?: string;
+
   @Field(() => Int, { defaultValue: 2 })
   @IsInt()
   role: number;

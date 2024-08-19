@@ -21,6 +21,14 @@ export class User {
   @Field()
   email: string;
 
+  @Column({ default: '0' })
+  @Field()
+  phone1: string;
+
+  @Column({ default: '0' })
+  @Field()
+  phone2: string;
+
   @Column()
   @Field()
   avatar: string;

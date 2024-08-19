@@ -24,6 +24,8 @@ export const GET_APARTMENTS = gql`
         id
         login
         email
+        phone1
+        phone2
       }
       locality
       floorInApartment
@@ -47,6 +49,8 @@ export const GET_APARTMENT_BY_ID = gql`
         id
         login
         email
+        phone1
+        phone2
       }
       locality
       floorInApartment

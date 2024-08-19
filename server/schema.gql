@@ -12,6 +12,8 @@ type User {
   login: String!
   password: String!
   email: String!
+  phone1: String!
+  phone2: String!
   avatar: String!
   role: Role!
   createdAt: DateTime!
@@ -70,6 +72,8 @@ input CreateUserInput {
   login: String!
   password: String!
   email: String!
+  phone1: String! = "0"
+  phone2: String! = "0"
   role: Int! = 2
   avatar: String
 }
@@ -78,6 +82,8 @@ input UpdateUserInput {
   login: String
   password: String
   email: String
+  phone1: String = "0"
+  phone2: String = "0"
   role: Int = 2
   avatar: String
   id: Int!

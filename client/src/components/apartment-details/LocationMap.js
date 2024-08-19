@@ -6,7 +6,8 @@ const StyledCard = styled(Card)({
   marginTop: '20px',
   borderRadius: '20px',
   boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
-  backgroundColor: '#fff',
+  backgroundColor: 'rgba(105, 112, 121, 0.68)',
+  color: 'rgba(255, 255, 255)',
 });
 
 const LocationMap = ({ location }) => {
