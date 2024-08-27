@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_APARTMENTS } from '../apollo/get-base';
+import { GET_APARTMENTS } from '../../apollo/get-base';
 import ProductCard from './ProductCard';
 import SortDropdown from './SortDropdown';
 import styled, { keyframes } from 'styled-components';
@@ -172,13 +172,13 @@ const HomePage = () => {
   return (
     <Container>
       <Header>
-        <Title>Знайдіть ідеальні апартаменти</Title>
+        <Title>Знайдіть своє ідеальне житло</Title>
         <Subtitle>Розкішні квартири для будь-якого бюджету</Subtitle>
         <SearchBar>
           <FaSearch color="#2e4053" />
           <SearchInput
             type="text"
-            placeholder="Пошук за назвою..."
+            placeholder="Пошук за мікрорайоном..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

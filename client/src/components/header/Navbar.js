@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faPhone } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../images/logo.jpg";
+import logo from "../../images/logo.png";
 
 const Navbar = () => (
   <div className="container-fluid bg-light d-none d-md-block-my">

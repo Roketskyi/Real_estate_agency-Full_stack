@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, OneToMany } from 'typeorm';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { User } from '../../user/entities/user.entity';
+import { ApartmentImage } from 'src/apartment-image/entities/apartment-image.entity';
 
 @ObjectType()
 @Entity()
@@ -20,10 +21,6 @@ export class Apartment {
   @Field(() => Int)
   @Column()
   price: number;
-
-  @Field()
-  @Column()
-  imageUrl: string;
 
   @Field(() => Int)
   @Column({ name: 'sellerId' })
@@ -57,6 +54,10 @@ export class Apartment {
   @Field()
   @Column({ length: 255 })
   heating: string;
+
+  @Field(() => [ApartmentImage])
+  @OneToMany(() => ApartmentImage, image => image.apartment, { eager: true })
+  images: ApartmentImage[];
 
   @Field()
   @CreateDateColumn()

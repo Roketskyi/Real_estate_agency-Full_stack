@@ -9,15 +9,7 @@ import SellerInfo from './SellerInfo';
 import Amenities from './Amenities';
 import LocationMap from './LocationMap';
 import SimilarApartments from './SimilarApartments';
-import Carousel from './Carousel';
 import { styled } from '@mui/system';
-
-const images = [
-  'https://polyakova.biz/content/portfolio/314/previewlist-314.jpg',
-  'https://st2.depositphotos.com/3667099/5985/i/450/depositphotos_59857451-stock-photo-living-and-dining-room-interior.jpg',
-  'https://img.freepik.com/free-photo/3d-rendering-loft-luxury-living-room-with-bookshelf_105762-2104.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLAK71iWjIXTdTjqfimP1IJD4Y4kQsEVAE0Q&s',
-];
 
 const PageContainer = styled(Container)({
   marginTop: '20px',
@@ -38,7 +30,6 @@ const ApartmentDetails = () => {
   if (error) return <Typography color="error">Error: {error.message}</Typography>;
 
   const { apartment } = data;
-  const imagePath = `${apartment.imageUrl}`;
 
   return (
     <PageContainer>
@@ -46,11 +37,11 @@ const ApartmentDetails = () => {
         <Grid item xs={12} md={8}>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <ApartmentCard
-              imagePath={imagePath}
+              images={apartment.images}
               title={apartment.title}
               description={apartment.description}
               price={apartment.price}
-              locality={apartment.locality}
+              locality={data.apartment.locality}
               floorInApartment={apartment.floorInApartment}
               numberOfRooms={apartment.numberOfRooms}
               square={apartment.square}
@@ -58,7 +49,6 @@ const ApartmentDetails = () => {
               heating={apartment.heating}
             />
           </motion.div>
-          <Carousel images={images} />
           <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
             <Amenities amenities={apartment.amenities} />
           </motion.div>

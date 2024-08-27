@@ -11,9 +11,6 @@ export class CreateApartmentInput {
   @Field(() => Int)
   price: number;
 
-  @Field()
-  imageUrl: string;
-
   @Field(() => Int)
   sellerId: number;
 
@@ -34,4 +31,7 @@ export class CreateApartmentInput {
 
   @Field()
   heating: string;
+
+  @Field(() => [String])
+  imageUrls: string[];
 }

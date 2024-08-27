@@ -10,6 +10,9 @@ type Role {
 type User {
   id: Int!
   login: String!
+  firstName: String
+  lastName: String
+  middleName: String
   password: String!
   email: String!
   phone1: String!
@@ -24,12 +27,18 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type ApartmentImage {
+  id: Int!
+  url: String!
+  apartmentId: Int!
+  apartment: Apartment!
+}
+
 type Apartment {
   id: Int!
   title: String!
   description: String!
   price: Int!
-  imageUrl: String!
   sellerId: Int!
   seller: User!
   locality: String!
@@ -38,6 +47,7 @@ type Apartment {
   square: Int!
   wallMaterial: String!
   heating: String!
+  images: [ApartmentImage!]!
   date: DateTime!
 }
 
@@ -55,6 +65,7 @@ type Query {
   isLoggedIn: Boolean!
   apartments: [Apartment!]!
   apartment(id: Int!): Apartment!
+  apartmentImage(id: Int!): ApartmentImage!
 }
 
 type Mutation {
@@ -66,6 +77,9 @@ type Mutation {
   createApartment(createApartmentInput: CreateApartmentInput!): Apartment!
   updateApartment(updateApartmentInput: UpdateApartmentInput!): Apartment!
   removeApartment(id: Int!): Apartment!
+  createApartmentImage(createApartmentImageInput: CreateApartmentImageInput!): ApartmentImage!
+  updateApartmentImage(updateApartmentImageInput: UpdateApartmentImageInput!): ApartmentImage!
+  removeApartmentImage(id: Int!): ApartmentImage!
 }
 
 input CreateUserInput {
@@ -76,17 +90,22 @@ input CreateUserInput {
   phone2: String! = "0"
   role: Int! = 2
   avatar: String
+  firstName: String
+  lastName: String
+  middleName: String
 }
 
 input UpdateUserInput {
+  id: Int!
   login: String
   password: String
   email: String
-  phone1: String = "0"
-  phone2: String = "0"
-  role: Int = 2
+  phone1: String
+  phone2: String
   avatar: String
-  id: Int!
+  firstName: String
+  lastName: String
+  middleName: String
 }
 
 input CreateRoleInput {
@@ -97,7 +116,6 @@ input CreateApartmentInput {
   title: String!
   description: String!
   price: Int!
-  imageUrl: String!
   sellerId: Int!
   locality: String!
   floorInApartment: Int!
@@ -105,13 +123,13 @@ input CreateApartmentInput {
   square: Int!
   wallMaterial: String!
   heating: String!
+  imageUrls: [String!]!
 }
 
 input UpdateApartmentInput {
   title: String
   description: String
   price: Int
-  imageUrl: String
   sellerId: Int
   locality: String
   floorInApartment: Int
@@ -119,5 +137,17 @@ input UpdateApartmentInput {
   square: Int
   wallMaterial: String
   heating: String
+  imageUrls: [String!]
+  id: Int!
+}
+
+input CreateApartmentImageInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateApartmentImageInput {
+  """Example field (placeholder)"""
+  exampleField: Int
   id: Int!
 }

@@ -1,28 +1,39 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+const customIcon = new L.Icon({
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 const StyledCard = styled(Card)({
-  marginTop: '20px',
+  marginTop: '8px',
   borderRadius: '20px',
   boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
   backgroundColor: 'rgba(105, 112, 121, 0.68)',
   color: 'rgba(255, 255, 255)',
 });
 
+const mapContainerStyle = {
+  height: '300px',
+  width: '100%',
+};
+
+const center = {
+  lat: 48.946943,
+  lng: 24.706315,
+};
+
 const LocationMap = ({ location }) => {
-  if (!location) {
-    return (
-      <StyledCard>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Місцезнаходження на мапі
-          </Typography>
-          <Typography variant="body1">Місцезнаходження не визначено</Typography>
-        </CardContent>
-      </StyledCard>
-    );
-  }
+  const latitude = location?.latitude || center.lat;
+  const longitude = location?.longitude || center.lng;
 
   return (
     <StyledCard>
@@ -30,14 +41,19 @@ const LocationMap = ({ location }) => {
         <Typography variant="h6" gutterBottom>
           Місцезнаходження на мапі
         </Typography>
-        <div style={{ height: '300px', backgroundColor: '#f0f0f0' }}>
-          {location.latitude && location.longitude ? (
-            <Typography variant="body1">
-              Latitude: {location.latitude}, Longitude: {location.longitude}
-            </Typography>
-          ) : (
-            <Typography variant="body1">Координати місцезнаходження не визначено</Typography>
-          )}
+        <div style={mapContainerStyle}>
+          <MapContainer 
+            center={[latitude, longitude]} 
+            zoom={16} 
+            style={mapContainerStyle}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[latitude, longitude]} icon={customIcon}>
+              <Popup>Місцезнаходження квартири</Popup>
+            </Marker>
+          </MapContainer>
         </div>
       </CardContent>
     </StyledCard>

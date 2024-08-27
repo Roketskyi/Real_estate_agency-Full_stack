@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_NEW_APARTMENT } from '../apollo/mutation-base';
-import { GET_USERS } from '../apollo/get-base';
-import { useAuth } from '../context/AuthContext';
+import { ADD_NEW_APARTMENT } from '../../apollo/mutation-base';
+import { GET_USERS } from '../../apollo/get-base';
+import { useAuth } from '../../context/AuthContext';
 
 const AdminPanel = () => {
   const [showModal, setShowModal] = useState(false);

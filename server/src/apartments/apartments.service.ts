@@ -4,46 +4,46 @@ import { Repository } from 'typeorm';
 import { CreateApartmentInput } from './dto/create-apartment.input';
 import { UpdateApartmentInput } from './dto/update-apartment.input';
 import { Apartment } from './entities/apartment.entity';
+import { ApartmentImage } from 'src/apartment-image/entities/apartment-image.entity';
 
 @Injectable()
 export class ApartmentsService {
+  imageRepository: any;
   constructor(
     @InjectRepository(Apartment)
     private readonly apartmentRepository: Repository<Apartment>,
   ) {}
 
   async create(createApartmentInput: CreateApartmentInput): Promise<Apartment> {
-    const newApartment = this.apartmentRepository.create(createApartmentInput);
+    const { imageUrls, ...apartmentData } = createApartmentInput;
+    
+    const newApartment = this.apartmentRepository.create(apartmentData);
     await this.apartmentRepository.save(newApartment);
-
-    const savedApartment = await this.apartmentRepository
-      .createQueryBuilder('apartment')
-      .leftJoinAndSelect('apartment.seller', 'seller')
-      .where('apartment.id = :id', { id: newApartment.id })
-      .getOne();
-
-    if (!savedApartment) {
-      throw new NotFoundException(`Apartment with id ${newApartment.id} not found.`);
-    }
-
-    return savedApartment;
+  
+    // Зберігаємо зображення
+    const images = imageUrls.map(url => {
+      const image = new ApartmentImage();
+      image.url = url;
+      image.apartmentId = newApartment.id;
+      return image;
+    });
+    await this.imageRepository.save(images);
+  
+    return this.findOne(newApartment.id);
   }
+  
 
   async findAll(): Promise<Apartment[]> {
-    return this.apartmentRepository.find({ relations: ['seller'] });
+    return this.apartmentRepository.find({ relations: ['images', 'seller'] });
   }
 
   async findOne(id: number): Promise<Apartment> {
-    const apartment = await this.apartmentRepository.findOneBy({ id });
-
-    if (!apartment) {
-      throw new NotFoundException(`Apartment with id ${id} not found.`);
-    }
-
-    await this.apartmentRepository.findOneOrFail({ where: { id }, relations: ['seller'] });
-
-    return apartment;
+    return this.apartmentRepository.findOneOrFail({ 
+      where: { id }, 
+      relations: ['images', 'seller'] 
+    });
   }
+  
 
   async update(id: number, updateApartmentInput: UpdateApartmentInput): Promise<Apartment> {
     await this.apartmentRepository.update(id, updateApartmentInput);

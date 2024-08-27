@@ -19,13 +19,19 @@ export const GET_APARTMENTS = gql`
       title
       description
       price
-      imageUrl
+      images {
+        id
+        url
+      }
       seller {
         id
         login
         email
         phone1
         phone2
+        firstName
+        lastName
+        middleName
       }
       locality
       floorInApartment
@@ -44,13 +50,19 @@ export const GET_APARTMENT_BY_ID = gql`
       title
       description
       price
-      imageUrl
+      images {
+        id
+        url
+      }
       seller {
         id
         login
         email
         phone1
         phone2
+        firstName
+        lastName
+        middleName
       }
       locality
       floorInApartment

@@ -1,13 +1,13 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Box, IconButton, Tooltip, Button } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Box, IconButton, Tooltip } from '@mui/material';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/system';
+import { FaBed, FaRulerCombined, FaBuilding, FaThermometerHalf } from 'react-icons/fa';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import HomeIcon from '@mui/icons-material/Home';
-import SquareFootIcon from '@mui/icons-material/SquareFoot';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const StyledCard = styled(Card)({
   borderRadius: '16px',
@@ -22,7 +22,7 @@ const StyledCard = styled(Card)({
 });
 
 const CardMediaStyled = styled(CardMedia)({
-  height: '250px',
+  height: '381px',
   transition: 'transform 0.3s ease',
   '&:hover': {
     transform: 'scale(1.05)',
@@ -74,32 +74,23 @@ const FeatureIcon = styled(Box)({
   color: '#1976d2',
 });
 
-const ActionButton = styled(IconButton)({
-  color: '#ffffff',
-  backgroundColor: '#ff5722',
-  borderRadius: '50%',
-  position: 'absolute',
-  bottom: '10px',
-  right: '60px',
-  '&:hover': {
-    backgroundColor: '#e64a19',
-  },
-});
-
 const ShareButton = styled(IconButton)({
   color: '#ffffff',
   backgroundColor: '#ff5722',
   borderRadius: '50%',
   position: 'absolute',
-  top: '10px',
-  right: '10px',
+  top: '25px',
+  left: '25px',
+  opacity: 0.5,
+  transition: 'opacity 0.3s ease',
   '&:hover': {
     backgroundColor: '#e64a19',
+    opacity: 1,
   },
 });
 
 const ApartmentCard = ({
-  imagePath,
+  images,
   title,
   description,
   price,
@@ -113,11 +104,27 @@ const ApartmentCard = ({
   return (
     <motion.div whileHover={{ scale: 1.03 }}>
       <StyledCard>
-        <CardMediaStyled
-          component="img"
-          image={imagePath}
-          alt={title}
-        />
+        <Slider>
+          {images.length > 0 ? (
+            images.map((image, index) => (
+              <CardMediaStyled
+                key={index}
+                component="img"
+                image={image.url}
+                alt={title}
+              />
+            ))
+          ) : (
+            <Typography variant="h6" align="center">
+              Фотографій не знайдено
+            </Typography>
+          )}
+        </Slider>
+        <Tooltip title="Додати у вибрані" arrow>
+          <ShareButton>
+            <FavoriteIcon />
+          </ShareButton>
+        </Tooltip>
         <CardHeader>
           <Typography variant="h5" component="div">
             {title}
@@ -127,68 +134,66 @@ const ApartmentCard = ({
           </PriceTag>
         </CardHeader>
         <CardContentWrapper>
-          <Typography variant="body2" color="text.secondary" paragraph>
-            {description}
-          </Typography>
           <Box>
-            <Typography variant="h6" color="text.primary" gutterBottom>
-              Характеристики апартаменту
+            <Typography variant="inherit" color="black" fontWeight="bold" gutterBottom sx={{ fontSize: '1.3rem' }}>
+              Характеристики Квартири
             </Typography>
             <FeatureItem>
               <FeatureIcon>
                 <LocationOnIcon />
               </FeatureIcon>
-              <Typography variant="body2" color="text.primary">
+              <Typography variant="inherit" color="black">
                 {locality}
               </Typography>
             </FeatureItem>
             <FeatureItem>
               <FeatureIcon>
-                <AccessTimeIcon />
+                <FaBed />
               </FeatureIcon>
-              <Typography variant="body2" color="text.primary">
-                Поверх: {floorInApartment}
-              </Typography>
-            </FeatureItem>
-            <FeatureItem>
-              <FeatureIcon>
-                <HomeIcon />
-              </FeatureIcon>
-              <Typography variant="body2" color="text.primary">
+              <Typography variant="inherit" color="black">
                 Кількість кімнат: {numberOfRooms}
               </Typography>
             </FeatureItem>
             <FeatureItem>
               <FeatureIcon>
-                <SquareFootIcon />
+                <FaBuilding />
               </FeatureIcon>
-              <Typography variant="body2" color="text.primary">
+              <Typography variant="inherit" color="black">
+                Поверх: {floorInApartment}
+              </Typography>
+            </FeatureItem>
+            <FeatureItem>
+              <FeatureIcon>
+                <FaRulerCombined />
+              </FeatureIcon>
+              <Typography variant="inherit" color="black">
                 Площа: {square} м²
               </Typography>
             </FeatureItem>
             <FeatureItem>
               <FeatureIcon>
-                <LocalFireDepartmentIcon />
+                <FaBuilding />
               </FeatureIcon>
-              <Typography variant="body2" color="text.primary">
+              <Typography variant="inherit" color="black">
                 Матеріал стін: {wallMaterial}
               </Typography>
             </FeatureItem>
             <FeatureItem>
               <FeatureIcon>
-                <LocalFireDepartmentIcon />
+                <FaThermometerHalf />
               </FeatureIcon>
-              <Typography variant="body2" color="text.primary">
+              <Typography variant="inherit" color="black">
                 Опалення: {heating}
               </Typography>
             </FeatureItem>
           </Box>
+          <Typography variant="inherit" fontWeight="bold" gutterBottom sx={{ marginTop: '3rem', fontSize: '20px' }}>
+            ДЕТАЛІ
+          </Typography>
+          <Typography variant="inherit" color="black" paragraph sx={{ letterSpacing: '0.02rem' }}>
+            {description}
+          </Typography>
         </CardContentWrapper>
-        <Tooltip title="Add to Favorites" arrow>
-          <ActionButton>
-            <FavoriteIcon />
-          </ActionButton>
-        </Tooltip>
       </StyledCard>
     </motion.div>
   );

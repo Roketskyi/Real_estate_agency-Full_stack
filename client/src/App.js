@@ -3,11 +3,11 @@ import { useQuery, useMutation } from '@apollo/client';
 import { IS_LOGGED_IN, LOGIN_MUTATION } from './apollo/auth';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/header/Header';
-import HomePage from './components/HomePage';
+import HomePage from './components/homepage/HomePage';
 import LoginForm from './components/auth/LoginForm';
 import ApartmentDetails from './components/apartment-details/ApartmentDetails';
-import AdminPanel from './components/AdminPanel';
-import ProfilePage from './components/ProfilePage';
+import AdminPanel from './components/admin-panel/AdminPanel';
+import ProfilePage from './components/profile/ProfilePage';
 import NotFound from './components/notfound/NotFound';
 import { AuthProvider } from './context/AuthContext';
 

@@ -16,6 +16,8 @@ import { UploadController } from './upload/upload.controller';
 import { multerConfig } from './multer.config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ApartmentImageModule } from './apartment-image/apartment-image.module';
+import { ApartmentImage } from './apartment-image/entities/apartment-image.entity';
 
 import * as dotenv from 'dotenv';
 
@@ -30,7 +32,7 @@ dotenv.config();
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [User, Role, Apartment],
+      entities: [User, Role, Apartment, ApartmentImage],
       logging: true, 
       synchronize: true,
     }),
@@ -49,6 +51,7 @@ dotenv.config();
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
     }),
+    ApartmentImageModule,
   ],
   controllers: [AppController, UploadController],
   providers: [AppService],

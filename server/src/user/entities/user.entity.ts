@@ -13,6 +13,18 @@ export class User {
   @Field()
   login: string;
 
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  firstName: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  lastName: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  middleName: string;
+
   @Column()
   @Field()
   password: string;

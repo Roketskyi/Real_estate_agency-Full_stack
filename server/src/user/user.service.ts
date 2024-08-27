@@ -27,6 +27,9 @@ export class UserService {
     newUser.login = createUserInput.login;
     newUser.password = hashedPassword;
     newUser.email = createUserInput.email;
+    newUser.firstName = createUserInput.firstName;
+    newUser.lastName = createUserInput.lastName;
+    newUser.middleName = createUserInput.middleName;
     newUser.role = await this.findRoleById(createUserInput.role);
     newUser.createdAt = new Date();
     newUser.avatar = 'http://localhost:4000/uploads/avatars/default.png';
@@ -70,29 +73,38 @@ export class UserService {
 
   async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
     const user = await this.findOne(id);
-
-    if (updateUserInput.login) {
+  
+    if (updateUserInput.login !== undefined) {
       user.login = updateUserInput.login;
     }
-
-    if (updateUserInput.password) {
+  
+    if (updateUserInput.password !== undefined) {
       user.password = await argon2.hash(updateUserInput.password);
     }
-
-    if (updateUserInput.email) {
+  
+    if (updateUserInput.email !== undefined) {
       user.email = updateUserInput.email;
     }
-
-    if (updateUserInput.role) {
-      user.role = await this.findRoleById(updateUserInput.role);
-    }
-
-    if (updateUserInput.avatar) {
+  
+    if (updateUserInput.avatar !== undefined) {
       user.avatar = updateUserInput.avatar;
     }
-
+  
+    if (updateUserInput.firstName !== undefined) {
+      user.firstName = updateUserInput.firstName;
+    }
+  
+    if (updateUserInput.lastName !== undefined) {
+      user.lastName = updateUserInput.lastName;
+    }
+  
+    if (updateUserInput.middleName !== undefined) {
+      user.middleName = updateUserInput.middleName;
+    }
+  
     return await this.userRepository.save(user);
   }
+  
 
   async remove(id: number): Promise<string> {
     const user = await this.findOne(id);

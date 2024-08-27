@@ -21,6 +21,11 @@ const formatPhoneNumber = (phoneNumber) => {
   return `+${countryCode} (${operatorCode}) ${firstPart}-${secondPart}-${thirdPart}`;
 };
 
+const getFullName = (seller) => {
+  const { lastName, firstName, middleName } = seller;
+  return [lastName, firstName, middleName].filter(Boolean).join(' ');
+};
+
 const Card = styled.div`
   background: linear-gradient(145deg, #ffffff, #f0f0f0);
   border-radius: 15px;
@@ -122,7 +127,7 @@ const Locality = styled.p`
 `;
 
 const ProductCard = ({ product }) => {
-  const imagePath = `${product.imageUrl}`;
+  const firstImage = product.images.length > 0 ? product.images[0].url : '';
 
   const phone1 = product.seller.phone1 !== "0" ? formatPhoneNumber(product.seller.phone1) : null;
   const phone2 = product.seller.phone2 !== "0" ? formatPhoneNumber(product.seller.phone2) : null;
@@ -133,7 +138,7 @@ const ProductCard = ({ product }) => {
         <Row>
           <Col flex="30%" className='row align-items-center'>
             <Link to={`/apartment/${product.id}`}>
-              <Image src={imagePath} alt={product.title} />
+              <Image src={firstImage} alt={product.title} />
             </Link>
           </Col>
           <Col flex="70%">
@@ -154,7 +159,7 @@ const ProductCard = ({ product }) => {
                 </InfoBlock>
                 <InfoBlock>
                   <Info>
-                    <FaUserAlt /> Продавець: {product.seller.login}
+                    <FaUserAlt /> Продавець: {getFullName(product.seller)}
                   </Info>
                   <Info>
                     <FaRegEnvelope /> Email: {product.seller.email}

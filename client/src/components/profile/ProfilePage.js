@@ -1,11 +1,10 @@
-// ProfilePage.js
 import React, { useState, useEffect } from 'react';
 import { Button, Upload, message, Spin, Avatar } from 'antd';
 import { UploadOutlined, UserOutlined } from '@ant-design/icons';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_AVATAR_BY_USER_ID } from '../apollo/get-base'; 
-import { UPDATE_USER_AVATAR } from '../apollo/mutation-base';
-import { useAuth } from '../context/AuthContext';
+import { GET_AVATAR_BY_USER_ID } from '../../apollo/get-base'; 
+import { UPDATE_USER_AVATAR } from '../../apollo/mutation-base';
+import { useAuth } from '../../context/AuthContext';
 import styled from 'styled-components';
 
 const ProfileContainer = styled.div`

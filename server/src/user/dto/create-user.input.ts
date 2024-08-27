@@ -31,4 +31,19 @@ export class CreateUserInput {
   @IsString()
   @IsOptional()
   avatar?: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  firstName: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  lastName: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  middleName: string;
 }

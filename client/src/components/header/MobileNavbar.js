@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../images/logo.jpg";
+import logo from "../../images/logo.png";
 
 const MobileNavbar = ({ toggleMenu, toggleContacts }) => (
   <div className="container d-md-none">
