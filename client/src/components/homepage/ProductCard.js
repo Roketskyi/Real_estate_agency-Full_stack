@@ -26,6 +26,11 @@ const getFullName = (seller) => {
   return [lastName, firstName, middleName].filter(Boolean).join(' ');
 };
 
+const truncateDescription = (description, maxLength) => {
+  if (!description) return '';
+  return description.length > maxLength ? `${description.slice(0, maxLength)}...` : description;
+};
+
 const Card = styled.div`
   background: linear-gradient(145deg, #ffffff, #f0f0f0);
   border-radius: 15px;
@@ -147,7 +152,9 @@ const ProductCard = ({ product }) => {
                 <Link to={`/apartment/${product.id}`}>{product.title}</Link>
               </Title>
               <Description>
-                <Link to={`/apartment/${product.id}`}>{product.description}</Link>
+                <Link to={`/apartment/${product.id}`}>
+                  {truncateDescription(product.description, 55)}
+                </Link>
               </Description>
               <Details>
                 <InfoBlock>

@@ -9,15 +9,15 @@ import SellerInfo from './SellerInfo';
 import Amenities from './Amenities';
 import LocationMap from './LocationMap';
 import SimilarApartments from './SimilarApartments';
+import ApartmentPrice from './ApartmentPrice';
 import { styled } from '@mui/system';
 
 const PageContainer = styled(Container)({
-  marginTop: '20px',
-  backgroundColor: '#f0f2f5',
-  padding: '20px',
+  backgroundColor: '#e8e8e8',
+  padding: '42px',
   borderRadius: '20px',
   boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
-  maxWidth: '1200px',
+  maxWidth: '1880px',
 });
 
 const ApartmentDetails = () => {
@@ -61,7 +61,10 @@ const ApartmentDetails = () => {
             <SellerInfo seller={apartment.seller} />
           </motion.div>
           <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
-            <LocationMap location={apartment.location} />
+            <LocationMap locality={data.apartment.locality} />
+          </motion.div>
+          <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
+            <ApartmentPrice price={apartment.price} />
           </motion.div>
         </Grid>
       </Grid>

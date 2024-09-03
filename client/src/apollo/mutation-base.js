@@ -7,7 +7,10 @@ export const ADD_NEW_APARTMENT = gql`
       title
       description
       price
-      imageUrl
+      images {
+        id
+        url
+      }
       seller {
         id
         login

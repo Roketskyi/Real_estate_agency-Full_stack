@@ -190,7 +190,7 @@ const ApartmentCard = ({
           <Typography variant="inherit" fontWeight="bold" gutterBottom sx={{ marginTop: '3rem', fontSize: '20px' }}>
             ДЕТАЛІ
           </Typography>
-          <Typography variant="inherit" color="black" paragraph sx={{ letterSpacing: '0.02rem' }}>
+          <Typography variant="inherit" color="black" paragraph sx={{ letterSpacing: '0.02rem', whiteSpace: 'pre-line' }}>
             {description}
           </Typography>
         </CardContentWrapper>

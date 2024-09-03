@@ -8,10 +8,11 @@ import { ApartmentImage } from 'src/apartment-image/entities/apartment-image.ent
 
 @Injectable()
 export class ApartmentsService {
-  imageRepository: any;
   constructor(
     @InjectRepository(Apartment)
     private readonly apartmentRepository: Repository<Apartment>,
+    @InjectRepository(ApartmentImage)
+    private readonly imageRepository: Repository<ApartmentImage>,
   ) {}
 
   async create(createApartmentInput: CreateApartmentInput): Promise<Apartment> {
@@ -20,7 +21,6 @@ export class ApartmentsService {
     const newApartment = this.apartmentRepository.create(apartmentData);
     await this.apartmentRepository.save(newApartment);
   
-    // Зберігаємо зображення
     const images = imageUrls.map(url => {
       const image = new ApartmentImage();
       image.url = url;
@@ -31,7 +31,6 @@ export class ApartmentsService {
   
     return this.findOne(newApartment.id);
   }
-  
 
   async findAll(): Promise<Apartment[]> {
     return this.apartmentRepository.find({ relations: ['images', 'seller'] });
@@ -43,7 +42,6 @@ export class ApartmentsService {
       relations: ['images', 'seller'] 
     });
   }
-  
 
   async update(id: number, updateApartmentInput: UpdateApartmentInput): Promise<Apartment> {
     await this.apartmentRepository.update(id, updateApartmentInput);

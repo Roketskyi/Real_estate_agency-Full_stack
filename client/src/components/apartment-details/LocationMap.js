@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -26,14 +26,33 @@ const mapContainerStyle = {
   width: '100%',
 };
 
-const center = {
-  lat: 48.946943,
-  lng: 24.706315,
-};
+const LocationMap = ({ locality }) => {
+  const [coordinates, setCoordinates] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
-const LocationMap = ({ location }) => {
-  const latitude = location?.latitude || center.lat;
-  const longitude = location?.longitude || center.lng;
+  useEffect(() => {
+    if (locality) {
+      setLoading(true);
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locality)}&limit=1`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            const { lat, lon } = data[0];
+            setCoordinates({ lat: parseFloat(lat), lng: parseFloat(lon) });
+            setError('');
+          } else {
+            setError('Адресу не знайдено.');
+            setCoordinates(null);
+          }
+        })
+        .catch(() => {
+          setError('Помилка при отриманні даних.');
+          setCoordinates(null);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [locality]);
 
   return (
     <StyledCard>
@@ -41,20 +60,28 @@ const LocationMap = ({ location }) => {
         <Typography variant="h6" gutterBottom>
           Місцезнаходження на мапі
         </Typography>
-        <div style={mapContainerStyle}>
-          <MapContainer 
-            center={[latitude, longitude]} 
-            zoom={16} 
-            style={mapContainerStyle}
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[latitude, longitude]} icon={customIcon}>
-              <Popup>Місцезнаходження квартири</Popup>
-            </Marker>
-          </MapContainer>
-        </div>
+        {loading ? (
+          <Typography>Завантаження карти...</Typography>
+        ) : error ? (
+          <Typography color="error">{error}</Typography>
+        ) : coordinates ? (
+          <div style={mapContainerStyle}>
+            <MapContainer 
+              center={[coordinates.lat, coordinates.lng]} 
+              zoom={16} 
+              style={mapContainerStyle}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[coordinates.lat, coordinates.lng]} icon={customIcon}>
+                <Popup>{locality}</Popup>
+              </Marker>
+            </MapContainer>
+          </div>
+        ) : (
+          <Typography>Немає даних для відображення.</Typography>
+        )}
       </CardContent>
     </StyledCard>
   );
